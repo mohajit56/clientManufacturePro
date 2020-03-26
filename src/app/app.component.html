@@ -1,0 +1,94 @@
+<div class="mat-elevation-z8">
+	<div class="container col-md-12 offset-md-3">
+		<h1 style="align:center">ALTIMETRIK CORP Interview Case Study API</h1>
+	<!-- main app container -->
+		<div class="jumbotron">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 offset-md-3">
+						<form name="form" (ngSubmit)="f.form.valid && onSubmit()"
+							#f="ngForm" novalidate>
+							<div class="col-md-12 offset-md-12">
+								<div class="col-md-6 offset-md-6 form-group">
+									<label for="Name">Vehicle Name: </label> <input type="text"
+										class="form-control" name="Name"
+										[(ngModel)]="searchModel.Name" #Name="ngModel"
+										[ngClass]="{ 'is-invalid': f.submitted && Name.invalid }"
+										required />
+										<div *ngIf="f.submitted && Name.invalid" class="invalid-feedback" style="color: red;">Vehicle Name is required</div>
+									<button class="btn btn-primary">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- <pre>{{resultslist | json}}</pre>
+		
+		<pre>{{resultslist.results.length}}</pre> -->
+		
+		<div *ngIf="resultslist.results.length > 0">
+			<table mat-table [dataSource]="dataSource">
+				<!-- ID Column -->
+				<ng-container matColumnDef="seqNo">
+				<th mat-header-cell *matHeaderCellDef>Seq No</th>
+				<td mat-cell *matCellDef="let row;let i = index;">{{i+1}}</td>
+				</ng-container>
+
+				<!-- Employee Name Column -->
+				<ng-container matColumnDef="mrfId">
+				<th mat-header-cell *matHeaderCellDef>Mrf Id</th>
+				<td mat-cell *matCellDef="let row">{{row.mfr_ID}}</td>
+				</ng-container>
+
+				<!-- Color Column -->
+				<ng-container matColumnDef="mrfName">
+				<th mat-header-cell *matHeaderCellDef>Mrf Name</th>
+				<td mat-cell *matCellDef="let row">{{row.mfr_Name}}</td>
+				</ng-container>
+
+				<!-- Color Column -->
+				<ng-container matColumnDef="mrfCity">
+				<th mat-header-cell *matHeaderCellDef>Mrf City</th>
+				<td mat-cell *matCellDef="let row">{{row.city}}</td>
+				</ng-container>
+
+				<!-- Color Column -->
+				<ng-container matColumnDef="mrfState">
+				<th mat-header-cell *matHeaderCellDef>Mrf State</th>
+				<td mat-cell *matCellDef="let row">{{row.stateProvince}}</td>
+				</ng-container>
+
+				<!-- Color Column -->
+				<ng-container matColumnDef="mrfCountry">
+				<th mat-header-cell *matHeaderCellDef>Mrf Country</th>
+				<td mat-cell *matCellDef="let row">{{row.country}}</td>
+				</ng-container>
+
+				<!-- Color Column -->
+				<ng-container matColumnDef="edit">
+				<th mat-header-cell *matHeaderCellDef>Edit</th>
+				<td mat-cell *matCellDef="let row">
+					<button style="color: blue" (click)="(row)">Edit</button>
+				</td>
+				</ng-container>
+
+				<!-- Color Column -->
+				<ng-container matColumnDef="delete">
+				<th mat-header-cell *matHeaderCellDef>Delete</th>
+				<td mat-cell *matCellDef="let row;">
+					<button style="color: red" (click)="deleteRow(row.mfr_ID)">Delete</button>
+				</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+			</div>
+			<div *ngIf="resultslist.results.length == 0">
+				Response data is not available.
+			</div>
+	</div>
+
